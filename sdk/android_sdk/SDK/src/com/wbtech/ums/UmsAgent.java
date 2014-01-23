@@ -509,6 +509,7 @@ public class UmsAgent {
                         String key = iterator.next();
                         String value = object.getString(key);
                         editor.putString(key, value);
+                        /*
                         if (key.equals("autogetlocation") && (!value.equals("1"))) {
                             setAutoLocation(false);
                         }
@@ -522,6 +523,35 @@ public class UmsAgent {
                         if (key.equals("sessionmillis")) {
                             UmsConstants.kContinueSessionMillis = Integer.parseInt(value) * 1000;
                         }
+                        */
+                        if (key.equals("autogetlocation")) {
+                        	if(value.equals("1"))
+                        		setAutoLocation(true);
+                        	else
+                        		setAutoLocation(false);
+                        }
+
+                        if (key.equals("updateonlywifi")) {
+                        	if(value.equals("1"))
+                        		setUpdateOnlyWifi(true);
+                        	else
+                        		setUpdateOnlyWifi(false);
+                        }
+
+                        if (key.equals("reportpolicy")) {
+                        	if(value.equals("1"))
+                        		setDefaultReportPolicy(context, 1);
+                        	else
+                        		setDefaultReportPolicy(context, 0);
+                        }
+
+                        if (key.equals("sessionmillis")) {
+                        	if(value.trim().matches("\\d+")){
+                        		CommonUtil.printLog("set session step", value);
+                        		UmsConstants.kContinueSessionMillis = Integer.parseInt(value) * 1000;
+                        	}
+                        }
+                        
                     }
                     editor.commit();
 
